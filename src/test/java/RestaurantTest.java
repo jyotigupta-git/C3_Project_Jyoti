@@ -68,5 +68,16 @@ class RestaurantTest {
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-
+    //<<<<Start<<<<<<<get total price of selected Items>>>>>>>
+    @Test
+    public void total_price_is_sum_of_selected_items_if_one_or_more_items_selected(){
+        int totalPrice = restaurant.getTotalPrice();
+        assertEquals(388,totalPrice);
+    }
+    @Test
+    public void total_price_is_zero_when_no_items_selected_throw_exception(){
+        int totalPrice = restaurant.getTotalPrice();
+        assertEquals(0,totalPrice);
+    }
+    //<<<<End<<<<<<<get total price of selected Items>>>>>>>
 }

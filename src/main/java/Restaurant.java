@@ -66,4 +66,15 @@ public class Restaurant {
     public String getName() {
         return name;
     }
+    //<<<<Start<<<<<<<get total price for selected Items>>>>>>>
+    public void selectItem(Item item){
+        String temp[] = item.getName().toString().split(":");
+        selectedItemNames.add(temp[0]);
+        totalPrice = totalPrice+Integer.valueOf(temp[1]);
+    }
+    public int getTotalPrice(){
+        return this.totalPrice;
+    }
+
+    //<<<<End<<<<<<<get total price for selected Items>>>>>>>
 }
