@@ -10,7 +10,6 @@ class RestaurantTest {
     LocalTime closingTime = LocalTime.parse("22:00:00");
     Restaurant restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
 
-    //REFACTOR ALL THE REPEATED LINES OF CODE
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>OPEN/CLOSED<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     //-------FOR THE 2 TESTS BELOW, YOU MAY USE THE CONCEPT OF MOCKING, IF YOU RUN INTO ANY TROUBLE
@@ -18,8 +17,8 @@ class RestaurantTest {
     public void is_restaurant_open_should_return_true_if_time_is_between_opening_and_closing_time(){
         //WRITE UNIT TEST CASE HERE
         LocalTime currentTime = LocalTime.now();
-        LocalTime openingTime = currentTime.minusHours(1);
-        LocalTime closingTime = currentTime.plusHours(1);
+        LocalTime openingTime = currentTime.minusMinutes(1);
+        LocalTime closingTime = currentTime.plusMinutes(1);
         restaurant = new Restaurant("Food Palace","Bangalore",openingTime,closingTime);
         boolean isOpen = restaurant.isRestaurantOpen();
         assertEquals(true,isOpen);
@@ -71,13 +70,21 @@ class RestaurantTest {
     //<<<<Start<<<<<<<get total price of selected Items>>>>>>>
     @Test
     public void total_price_is_sum_of_selected_items_if_one_or_more_items_selected(){
-        int totalPrice = restaurant.getTotalPrice();
-        assertEquals(388,totalPrice);
+        restaurant.addToMenu("Sweet corn soup",119);
+        restaurant.addToMenu("Vegetable lasagne", 269);
+
+        for(Item item :restaurant.getMenu()) {
+            restaurant.selectItem(item);
+        }
+        int orderValue = restaurant.getOrderValue();
+        assertEquals(388,orderValue);
     }
     @Test
-    public void total_price_is_zero_when_no_items_selected_throw_exception(){
-        int totalPrice = restaurant.getTotalPrice();
-        assertEquals(0,totalPrice);
+    public void total_price_is_zero_when_no_items_selected(){
+        restaurant.addToMenu("Sweet corn soup",119);
+        restaurant.addToMenu("Vegetable lasagne", 269);
+        int orderValue = restaurant.getOrderValue();
+        assertEquals(0,orderValue);
     }
     //<<<<End<<<<<<<get total price of selected Items>>>>>>>
 }

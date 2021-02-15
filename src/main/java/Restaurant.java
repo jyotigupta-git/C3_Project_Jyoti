@@ -10,7 +10,7 @@ public class Restaurant {
     public LocalTime closingTime;
     private List<Item> menu = new ArrayList<Item>();
     private List<String> selectedItemNames = new ArrayList<String>();
-    private int totalPrice;
+    private int orderValue;
 
     public Restaurant(String name, String location, LocalTime openingTime, LocalTime closingTime) {
         this.name = name;
@@ -68,12 +68,11 @@ public class Restaurant {
     }
     //<<<<Start<<<<<<<get total price for selected Items>>>>>>>
     public void selectItem(Item item){
-        String temp[] = item.getName().toString().split(":");
-        selectedItemNames.add(temp[0]);
-        totalPrice = totalPrice+Integer.valueOf(temp[1]);
+        selectedItemNames.add(item.getName());
+        orderValue = orderValue+item.getPrice();
     }
-    public int getTotalPrice(){
-        return this.totalPrice;
+    public int getOrderValue(){
+        return this.orderValue;
     }
 
     //<<<<End<<<<<<<get total price for selected Items>>>>>>>
