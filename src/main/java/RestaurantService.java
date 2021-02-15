@@ -5,11 +5,13 @@ import java.util.List;
 public class RestaurantService {
     private static List<Restaurant> restaurants = new ArrayList<>();
 
-    public Restaurant findRestaurantByName(String restaurantName){
+    public Restaurant findRestaurantByName(String restaurantName) throws restaurantNotFoundException {
 
         for(Restaurant restaurant: restaurants){
             if(restaurant.getName().equalsIgnoreCase(restaurantName)){
                 return restaurant;
+            }else{
+                throw new restaurantNotFoundException(restaurantName+" not found.");
             }
         }
         return null;
@@ -24,7 +26,11 @@ public class RestaurantService {
 
     public Restaurant removeRestaurant(String restaurantName) throws restaurantNotFoundException {
         Restaurant restaurantToBeRemoved = findRestaurantByName(restaurantName);
-        restaurants.remove(restaurantToBeRemoved);
+        try {
+            restaurants.remove(restaurantToBeRemoved);
+        } catch(Exception e){
+            throw new restaurantNotFoundException(restaurantName + " not found.");
+        }
         return restaurantToBeRemoved;
     }
 
